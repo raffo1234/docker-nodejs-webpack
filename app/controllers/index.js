@@ -1,0 +1,1 @@
+exports.controllerHome = require('./home');

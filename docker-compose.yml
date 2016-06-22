@@ -1,0 +1,9 @@
+website_rm:
+  container_name: WEBSITE
+  labels:
+    - "Website RM"
+  build: .
+  ports:
+     - "8030:8030"
+  volumes:
+     - ./app:/srv/www/website/app
