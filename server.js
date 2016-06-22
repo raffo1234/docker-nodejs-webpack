@@ -1,5 +1,3 @@
-
-
 var express = require('express');
 var http = require('http');
 var path = require('path');
@@ -33,7 +31,7 @@ if (isDeveloping) {
 	      colors: true,
 	    }
 	});
-	const bundlePath = path.join(__dirname, './app/templates/index.html');
+	const bundlePath = path.join(__dirname, './app/templates/build/index.html');
 
 	app.use(middleware);
 	app.use(webpackHotMiddleware(compiler));
@@ -42,7 +40,7 @@ if (isDeveloping) {
 	    res.end();
 	});
 }else{
-	const staticPath = path.join(__dirname, 'app/templates');
+	const staticPath = path.join(__dirname, 'app/templates/build');
 	app.use(express.static(staticPath));
 }
 

@@ -4,6 +4,8 @@ website_rm:
     - "Website RM"
   build: .
   ports:
-     - "8030:8030"
+    - "8030:8030"
   volumes:
-     - ./app:/srv/www/website/app
+    - ./app:/srv/www/website/app
+  environment:
+    - NODE_ENV=dev

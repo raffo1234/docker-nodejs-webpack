@@ -7,11 +7,15 @@ var APP = __dirname + '/app/templates';
 
 module.exports = {
     context: APP,
-     entry: {
-        app: ['webpack/hot/dev-server', './core/bootstrap.js']
+    entry: {
+        app: [
+        	'webpack/hot/dev-server',
+        	'./core/bootstrap.js',
+        	'./index.html'
+        	]
     },
     output: {
-        path: APP,
+        path: './build',
         filename: 'bundle.js'
     },
     module: {
