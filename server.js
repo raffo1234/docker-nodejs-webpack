@@ -7,17 +7,17 @@ var path = require('path');
 var app = express();
 var server = http.createServer(app);
 
-var config = require('./config_server');
+// var config = require('./config_server');
 // var port = config.port;
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
 // HTML
 if (isDeveloping) {
-	let webpack = require('webpack');
-	let webpackMiddleware = require('webpack-dev-middleware');
-	let webpackHotMiddleware = require('webpack-hot-middleware');
-	let config = require('./webpack.config.js');
+	const webpack = require('webpack');
+	const webpackMiddleware = require('webpack-dev-middleware');
+	const webpackHotMiddleware = require('webpack-hot-middleware');
+	const config = require('./webpack.config.js');
 
 	const compiler = webpack(config);
 	const middleware = webpackMiddleware(compiler, {
@@ -49,11 +49,11 @@ if (isDeveloping) {
 // ROUTE
 var routes = require('./app/routes/routes')(app);
 
-server.listen(port, function () {
-	if (err) {
-	    console.log(err);
-	}
-	console.info('==> 🌎 Listening on port %s. Open up http://0.0.0.0:%s/ in your browser.', port, port);
+app.listen(port, '0.0.0.0', function onStart(err) {
+  	if (err) {
+    	console.log(err);
+  	}
+  	console.info('==> 🌎 Listening on port %s. Open up http://0.0.0.0:%s/ in your browser.', port, port);
 });
 
 
