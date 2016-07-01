@@ -6,6 +6,6 @@ website_rm:
   ports:
     - "8030:8030"
   volumes:
-    - ./app:/srv/www/website/app
+    - .:/srv/www/website
   environment:
     - NODE_ENV=dev

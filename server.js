@@ -5,20 +5,17 @@ var path = require('path');
 var app = express();
 var server = http.createServer(app);
 
-// var config = require('./config_server');
-// var port = config.port;
-
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
 // HTML
 if (isDeveloping) {
 	const webpack = require('webpack');
 	const webpackMiddleware = require('webpack-dev-middleware');
-	const webpackHotMiddleware = require('webpack-hot-middleware');
-	const config = require('./webpack.config.js');
+	const config = require('webpack.config.js');
 
 	const compiler = webpack(config);
 	const middleware = webpackMiddleware(compiler, {
+		hot: true,
 	    publicPath: config.output.publicPath,
 	    noInfo: true,
 	    quiet: false,
@@ -34,7 +31,6 @@ if (isDeveloping) {
 	const bundlePath = path.join(__dirname, './app/templates/build/index.html');
 
 	app.use(middleware);
-	app.use(webpackHotMiddleware(compiler));
 	app.get('*', function response(req, res) {
 	    res.write(middleware.fileSystem.readFileSync(bundlePath));
 	    res.end();
@@ -53,5 +49,3 @@ app.listen(port, '0.0.0.0', function onStart(err) {
   	}
   	console.info('==> 🌎 Listening on port %s. Open up http://0.0.0.0:%s/ in your browser.', port, port);
 });
-
-

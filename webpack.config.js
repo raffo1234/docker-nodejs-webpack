@@ -1,34 +1,33 @@
 'use strict';
-
 var webpack = require('webpack'),
-path = require('path');
+  path = require('path');
 
-var APP = __dirname + '/app/templates';
+// PATHS
+var PATHS = {
+  app: __dirname + '/app',
+  bower: __dirname + '/app/bower_components'
+};
 
 module.exports = {
-    context: APP,
-    entry: {
-        app: [
-        	'webpack/hot/dev-server',
-        	'./core/bootstrap.js',
-        	'./index.html'
-        	]
-    },
-    output: {
-        path: './build',
-        filename: 'bundle.js'
-    },
-    module: {
-	    loaders: [
-		    {
-		        test: /\.scss$/,
-		        loader: 'style!css!sass'
-		    },
-		    {
-		    	test: /\.js$/,
-		    	loader: 'ng-annotate!babel?presets[]=es2015!jshint',
-		    	exclude: /node_modules|bower_components/
-			}
-	    ]
-  	}
-}
+  context: PATHS.app,
+  entry: {
+    app: ['webpack/hot/dev-server', './templates/app/core/bootstrap.js']
+  },
+  output: {
+    path: PATHS.app,
+    filename: 'bundle.js'
+  },
+  module: {
+    loaders: [{
+      test: /\.scss$/,
+      loader: 'style!css!sass'
+    }, {
+      test: /\.js$/,
+      loader: 'ng-annotate!babel?presets[]=es2015!jshint',
+      exclude: /node_modules|bower_components/
+    }]
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ]
+};
